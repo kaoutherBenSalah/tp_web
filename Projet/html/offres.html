@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Offres - Berberejewelery</title>
+    <link rel="icon" type="image/png" href="../images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #bf9b30;
+            --secondary-color: #70592b;
+            --light-gold: #e9d5a1;
+            --dark-brown: #3a2e17;
+            --light-cream: #f9f5eb;
+            --white: #ffffff;
+            --black: #222222;
+            --transition: all 0.3s ease-in-out;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--light-cream);
+            color: var(--dark-brown);
+            line-height: 1.6;
+        }
+        
+        .page-container {
+            max-width: 100%; 
+            margin: 0 auto;
+            padding: 20px 40px;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        h2::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+            margin: 15px auto;
+            transition: var(--transition);
+        }
+        
+        h2:hover::after {
+            width: 120px;
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Header */
+        header {
+            padding: 20px 0;
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 100;
+        }
+        
+        /* Promotions Section */
+        .texte-offres {
+            text-align: center;
+            padding: 40px 0;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--light-gold) 0%, var(--primary-color) 100%);
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .texte-offres:hover {
+            transform: translateY(-5px);
+        }
+        
+        .texte-offres h3 {
+            color: var(--white);
+            font-size: 2.2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            animation: fadeInDown 1.2s;
+        }
+        
+        /* Products Grid */
+        .produits {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin: 40px 0;
+        }
+        
+        .partie1 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(112, 89, 43, 0.2);
+        }
+        
+        .photos {
+            overflow: hidden;
+            height: 250px;
+            position: relative;
+        }
+        
+        .photos img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        
+        .card:hover .photos img {
+            transform: scale(1.1);
+        }
+        
+        .card h3 {
+            padding: 15px 20px 5px;
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            text-align: center;
+        }
+        
+        .card p {
+            text-align: center;
+            padding: 0 20px 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            margin-top: auto;
+        }
+        
+        .card strike {
+            color: #999;
+            font-weight: normal;
+            font-size: 0.9rem;
+        }
+        
+        .add {
+            padding: 15px 20px 20px;
+            text-align: center;
+        }
+        
+        .add button {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .add button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        /* Sale Badge */
+        .sale-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 8px 12px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+        
+        /* Footer */
+        .footer-distributed {
+            background-color: var(--dark-brown);
+            color: var(--light-cream);
+            padding: 50px 30px;
+            margin-top: 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .footer-left h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--light-cream);
+        }
+        
+        .footer-left h3 span {
+            color: var(--primary-color);
+        }
+        
+        .footer-links {
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: var(--light-gold);
+            text-decoration: none;
+            margin-right: 10px;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .footer-company-name {
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .footer-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .footer-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            color: var(--light-cream);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        
+        .footer-icons a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-right p {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--light-gold);
+        }
+        
+        .footer-right form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .footer-right input,
+        .footer-right textarea {
+            background-color: var(--secondary-color);
+            border: none;
+            padding: 15px;
+            border-radius: 4px;
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .footer-right input:focus,
+        .footer-right textarea:focus {
+            outline: 2px solid var(--primary-color);
+        }
+        
+        .footer-right textarea {
+            height: 100px;
+            resize: none;
+        }
+        
+        .footer-right button {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Montserrat', sans-serif;
+            align-self: flex-start;
+        }
+        
+        .footer-right button:hover {
+            background-color: var(--light-gold);
+            color: var(--dark-brown);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 0.8s;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .partie1 {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .footer-distributed {
+                grid-template-columns: 1fr;
+            }
+            
+            .texte-offres h3 {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .partie1 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <!-- Header -->
+        <div class="text animate-fadeInUp">
+            <h2>Nos Offres</h2>
+        </div>
+
+        <section class="texte-offres">
+            <div class="paragraphe">
+                <h3><em>Profitez de nos <br/>PROMOS JUSQU'À 30% DE RÉDUCTION<br/>C'est Yennayer !</em></h3>
+            </div>
+        </section>
+
+        <!-- Cartes produits -->
+        <section class="produits">
+            <div class="partie1">
+                <div class="card animate-fadeInUp" style="animation-delay: 0.1s;">
+                    <div class="sale-badge">-10%</div>
+                    <div class="photos">
+                        <img src="../images/promo/promo1.webp" alt="Boucles d'oreille Kabyle">
+                    </div>
+                    <h3>Boucles d'oreille Kabyle</h3>
+                    <p><strike>9 500 DA</strike><br/>8 550 DA</p>
+                    <div class="add"><button>Ajouter au panier</button></div>
+                </div>
+
+                <div class="card animate-fadeInUp" style="animation-delay: 0.2s;">
+                    <div class="sale-badge">-22%</div>
+                    <div class="photos">
+                        <img src="../images/promo/promo2.jpg" alt="Broche Kabyle en Argent">
+                    </div>
+                    <h3>Broche Kabyle en Argent - 5013</h3>
+                    <p><strike>9 000 DA</strike><br/>7 000 DA</p>
+                    <div class="add"><button>Ajouter au panier</button></div>
+                </div>
+
+                <div class="card animate-fadeInUp" style="animation-delay: 0.3s;">
+                    <div class="sale-badge">-19%</div>
+                    <div class="photos">
+                        <img src="../images/promo/promo3.jpg" alt="Parure Trio Kabyle">
+                    </div>
+                    <h3>Parure Trio Kabyle - 1762</h3>
+                    <p><strike>309 000 DA</strike><br/>250 000 DA</p>
+                    <div class="add"><button>Ajouter au panier</button></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer-distributed">
+            <div class="footer-left">
+                <h3>Berbere<span>jewelery</span></h3>
+                <p class="footer-links">
+                    <a href="index.php">Accueil</a> · 
+                    <a href="index.php?page=products">Produits</a> · 
+                    <a href="index.php?page=agences">Nos agences</a> · 
+                    <a href="index.php?page=contacts">Contact</a>
+                </p>
+                <p class="footer-company-name">© 2020 Berberejewelery</p>
+                <div class="footer-icons">
+                    <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-right">
+                <p>Contact</p>
+                <form action="#" method="post">
+                    <input type="text" name="email" placeholder="Email">
+                    <textarea name="message" placeholder="Message"></textarea>
+                    <button>Envoyer</button>
+                </form>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // Adding scroll animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to check if element is in viewport
+            function isInViewport(element) {
+                const rect = element.getBoundingClientRect();
+                return (
+                    rect.top >= 0 &&
+                    rect.left >= 0 &&
+                    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                );
+            }
+            
+            // Animate elements when they come into view
+            function animateOnScroll() {
+                const cards = document.querySelectorAll('.card');
+                
+                cards.forEach(card => {
+                    if (isInViewport(card) && !card.classList.contains('visible')) {
+                        card.classList.add('visible');
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }
+                });
+            }
+            
+            // Initialize card states
+            document.querySelectorAll('.card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            });
+            
+            // Listen for scroll events
+            window.addEventListener('scroll', animateOnScroll);
+            
+            // Initial check
+            animateOnScroll();
+        });
+    </script>
+</body>
+</html>

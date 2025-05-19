@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Produits - Berberejewelery</title>
+    <link rel="icon" type="image/png" href="../images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+        :root {
+            --primary-color: #bf9b30;
+            --secondary-color: #70592b;
+            --light-gold: #e9d5a1;
+            --dark-brown: #3a2e17;
+            --light-cream: #f9f5eb;
+            --white: #ffffff;
+            --black: #222222;
+            --transition: all 0.3s ease-in-out;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--light-cream);
+            color: var(--dark-brown);
+            line-height: 1.6;
+        }
+        
+        .page-container {
+            max-width: 100%; 
+            margin: 0 auto;
+            padding: 20px 40px;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        h2::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+            margin: 15px auto;
+            transition: var(--transition);
+        }
+        
+        h2:hover::after {
+            width: 120px;
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Header */
+        header {
+            padding: 20px 0;
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 100;
+        }
+        
+        /* Intro Paragraph */
+        .paragraphe {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            padding: 20px;
+            background-color: rgba(191, 155, 48, 0.05);
+            border-left: 4px solid var(--primary-color);
+            border-right: 4px solid var(--primary-color);
+            border-radius: 4px;
+            animation: fadeIn 1.2s;
+        }
+        
+        .paragraphe h3 {
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+            font-weight: 400;
+            font-style: italic;
+            line-height: 1.8;
+        }
+        
+        /* Category Title */
+        .titre {
+            margin: 60px 0 30px;
+            position: relative;
+        }
+        
+        .titre h4 {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .titre h4::before {
+            content: "";
+            position: absolute;
+            left: 25%;
+            bottom: 0;
+            width: 50%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+        }
+        
+        /* Products Grid */
+        .produits {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin: 40px 0;
+        }
+        
+        .partie1 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(112, 89, 43, 0.2);
+        }
+        
+        .photos {
+            overflow: hidden;
+            height: 250px;
+            position: relative;
+        }
+        
+        .photos::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(191, 155, 48, 0.1), transparent);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .card:hover .photos::after {
+            opacity: 1;
+        }
+        
+        .photos img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        
+        .card:hover .photos img {
+            transform: scale(1.1);
+        }
+        
+        .card h3 {
+            padding: 15px 20px 5px;
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            text-align: center;
+        }
+        
+        .card p {
+            text-align: center;
+            padding: 0 20px 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            margin-top: auto;
+        }
+        
+        .add {
+            padding: 15px 20px 20px;
+            text-align: center;
+        }
+        
+        .add button {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .add button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background-color: var(--secondary-color);
+            transition: var(--transition);
+            z-index: -1;
+        }
+        
+        .add button:hover::before {
+            left: 0;
+        }
+        
+        .add button:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Category Decorative Elements */
+        .category-decoration {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .decoration-line {
+            height: 2px;
+            flex-grow: 1;
+            background: linear-gradient(to right, transparent, var(--primary-color));
+        }
+        
+        .decoration-line:last-child {
+            background: linear-gradient(to left, transparent, var(--primary-color));
+        }
+        
+        .decoration-icon {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            margin: 0 15px;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fadeIn {
+            animation: fadeIn 1s;
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 0.8s;
+        }
+        
+        /* Hover Effects */
+        .hover-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hover-shine::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 100%);
+            transform: skewX(-25deg);
+            transition: all 0.75s;
+        }
+        
+        .card:hover .hover-shine::before {
+            animation: shine 1.2s;
+        }
+        
+        @keyframes shine {
+            100% {
+                left: 125%;
+            }
+        }
+        
+        /* Footer */
+        .footer-distributed {
+            background-color: var(--dark-brown);
+            color: var(--light-cream);
+            padding: 50px 30px;
+            margin-top: 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .footer-left h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--light-cream);
+        }
+        
+        .footer-left h3 span {
+            color: var(--primary-color);
+        }
+        
+        .footer-links {
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: var(--light-gold);
+            text-decoration: none;
+            margin-right: 10px;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .footer-company-name {
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .footer-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .footer-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            color: var(--light-cream);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        
+        .footer-icons a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-right p {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--light-gold);
+        }
+        
+        .footer-right form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .footer-right input,
+        .footer-right textarea {
+            background-color: var(--secondary-color);
+            border: none;
+            padding: 15px;
+            border-radius: 4px;
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .footer-right input:focus,
+        .footer-right textarea:focus {
+            outline: 2px solid var(--primary-color);
+        }
+        
+        .footer-right textarea {
+            height: 100px;
+            resize: none;
+        }
+        
+        .footer-right button {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Montserrat', sans-serif;
+            align-self: flex-start;
+        }
+        
+        .footer-right button:hover {
+            background-color: var(--light-gold);
+            color: var(--dark-brown);
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .partie1 {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .paragraphe h3 {
+                font-size: 1.2rem;
+            }
+            
+            .titre h4 {
+                font-size: 1.6rem;
+            }
+            
+            .footer-distributed {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .partie1 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="text animate-fadeIn">
+            <h2>Nos Produits</h2>
+        </div>
+
+        <div class="paragraphe">
+            <h3>
+                <em>Sublimez votre élégance avec notre collection intemporelle, et apportez de l'originalité avec nos bijoux au design typiquement kabyle de fabrication artisanale.</em>
+            </h3>
+        </div>
+
+        <div class="titre animate-fadeInUp">
+            <div class="category-decoration">
+                <div class="decoration-line"></div>
+                <div class="decoration-icon"><i class="fas fa-gem"></i></div>
+                <div class="decoration-line"></div>
+            </div>
+            <h4>Les Bracelets - Ameclux</h4>
+        </div>
+
+        <section class="produits">
+            <div class="partie1">
+                <div class="card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="photos hover-shine">
+                        <img src="../images/products/1.jpg" alt="bracelet 1">
+                    </div>
+                    <h3>Bracelet-1513</h3>
+                    <p>29 000 Da</p>
+                    <div class="add"><button>Ajouter au panier</button></div>
+                </div>
+                
+                <div class="card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="photos hover-shine">
+                        <img src="../images/products/2.jpg" alt="bracelet 2">
+                    </div>
+                    <h3>Bracelet-1612</h3>
+                    <p>49 000 Da</p>
+                    <div class="add"><button>Ajouter au panier</button></div>
+                </div>
+                
+                <div class="card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="photos hover-shine">
+                        <img src="../images/products/3.jpg" alt="bracelet 3">
+                    </div>
+                    <h3>Bracelet-2603</h3>
+                    <p>25 000 Da</p>
+                    <div class="add"><button>Ajouter au panier</button></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="titre animate-fadeInUp">
+            <div class="category-decoration">
+                <div class="decoration-line"></div>
+                <div class="decoration-icon"><i class="fas fa-fan"></i></div>
+                <div class="decoration-line"></div>
+            </div>
+            <h4>Les Broches - Avzim</h4>
+        </div>
+
+        <section class="produits">
+            <div class="partie1">
+                <div class="card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="photos hover-shine">
+                        <img src="../images/products/19.png" alt="broche 1">
+                    </div>
+                    <h3>Broche Kabyle - 3076</h3>
+                    <p>2 900 Da</p>
+                    <div class="add"><button>Ajouter au panier</button></div>
+                </div>
+                
+                <div class="card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="photos hover-shine">
+                        <img src="../images/products/20.jpg" alt="broche 2">
+                    </div>
+                    <h3>Broche Kabyle - 5012</h3>
+                    <p>45 900 Da</p>
+                    <div class="add"><button>Ajouter au panier</button></div>
+                </div>
+                
+                <div class="card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="photos hover-shine">
+                        <img src="../images/products/21.jpg" alt="broche 3">
+                    </div>
+                    <h3>Broche Kabyle - 5016</h3>
+                    <p>12 900 Da</p>
+                    <div class="add"><button>Ajouter au panier</button></div>
+                </div>
+            </div>
+
+            <div class="partie1">
+                <div class="card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="photos hover-shine">
+                        <img src="../images/products/22.jpg" alt="broche 4">
+                    </div>
+                    <h3>Broche Kabyle - 5042</h3>
+                    <p>2 900 Da</p>
+                    <div class="add"><button>Ajouter au panier</button></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer-distributed">
+            <div class="footer-left">
+                <h3>Berbere<span>jewelery</span></h3>
+                <p class="footer-links">
+                    <a href="index.php">Accueil</a> · 
+                    <a href="index.php?page=products">Produits</a> · 
+                    <a href="index.php?page=agences">Nos agences</a> · 
+                    <a href="index.php?page=contacts">Contact</a>
+                </p>
+                <p class="footer-company-name">© 2020 Berberejewelery</p>
+                <div class="footer-icons">
+                    <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-right">
+                <p>Contact</p>
+                <form action="#" method="post">
+                    <input type="text" name="email" placeholder="Email">
+                    <textarea name="message" placeholder="Message"></textarea>
+                    <button>Envoyer</button>
+                </form>
+            </div>
+        </footer>
+        
+        <!-- Back to Top Button -->
+        <div class="back-to-top">
+            <i class="fas fa-chevron-up"></i>
+        </div>
+    </div>
+    
+    <script>
+        // Adding scroll animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to check if element is in viewport
+            function isInViewport(element) {
+                const rect = element.getBoundingClientRect();
+                return (
+                    rect.top >= 0 &&
+                    rect.left >= 0 &&
+                    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                );
+            }
+            
+            // Initialize all cards with opacity 0 and transform
+            const allCards = document.querySelectorAll('.card');
+            allCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            });
+            
+            // Animate elements when they come into view
+            function animateOnScroll() {
+                const cards = document.querySelectorAll('.card');
+                
+                cards.forEach((card, index) => {
+                    if (isInViewport(card) && !card.classList.contains('animated')) {
+                        card.classList.add('animated');
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    }
+                });
+                
+                // Show/hide back to top button
+                const backToTopBtn = document.querySelector('.back-to-top');
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            }
+            
+            // Listen for scroll events
+            window.addEventListener('scroll', animateOnScroll);
+            
+            // Back to top functionality
+            const backToTopBtn = document.querySelector('.back-to-top');
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0, 
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Initial animation check
+            setTimeout(animateOnScroll, 100);
+        });
+    </script>
+</body>
+</html>

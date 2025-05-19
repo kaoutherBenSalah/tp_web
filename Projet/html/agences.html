@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Agences - Berbere Jewelery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .page-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            color: #333;
+            font-size: 24px;
+        }
+
+        .logo span {
+            color: #c19b76;
+            font-weight: bold;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 25px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: #c19b76;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .page-title:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: #c19b76;
+        }
+
+        /* Agency List */
+        .agency-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .agency {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .agency:hover {
+            transform: translateY(-5px);
+        }
+
+        .agency-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .agency-content {
+            padding: 20px;
+        }
+
+        .agency h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .agency-info {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .agency-info i {
+            color: #c19b76;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .agency-btn {
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: #c19b76;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .agency-btn:hover {
+            background-color: #a88057;
+        }
+
+        /* Map Section */
+        .map-section {
+            margin-bottom: 50px;
+        }
+
+        .map-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .map-container {
+            height: 450px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Contact Us Section */
+        .contact-section {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 50px;
+        }
+
+        .contact-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .contact-info {
+            text-align: center;
+        }
+
+        .contact-icon {
+            font-size: 30px;
+            color: #c19b76;
+            margin-bottom: 15px;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .contact-info p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #222;
+            color: #fff;
+            padding: 60px 0 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-col h3 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 20px;
+            position: relative;
+        }
+
+        .footer-col h3:after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #c19b76;
+        }
+
+        .footer-col h3 span {
+            color: #c19b76;
+        }
+
+        .footer-links {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #c19b76;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #333;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: #c19b76;
+            transform: translateY(-3px);
+        }
+
+        .footer-form input,
+        .footer-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 4px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        .footer-form textarea {
+            height: 100px;
+            resize: none;
+        }
+
+        .footer-form button {
+            padding: 12px 25px;
+            background-color: #c19b76;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .footer-form button:hover {
+            background-color: #a88057;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #aaa;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .nav-menu {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-menu li {
+                margin: 0 10px 10px;
+            }
+
+            .agency-list {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="page-container">
+       
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <h1 class="page-title">Nos Agences</h1>
+            
+            <!-- Agency List -->
+            <div class="agency-list">
+                <div class="agency">
+                    <div class="agency-img" style="background-image: url('/api/placeholder/400/320');"></div>
+                    <div class="agency-content">
+                        <h3>Agence Tizi Ouzou</h3>
+                        <div class="agency-info">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <p>04 Rue Chafai Ahmed Mdouha, Tizi Ouzou</p>
+                        </div>
+                        <div class="agency-info">
+                            <i class="fas fa-phone"></i>
+                            <p>+213 26 12 34 56</p>
+                        </div>
+                        <div class="agency-info">
+                            <i class="fas fa-clock"></i>
+                            <p>Lun-Sam: 9h-18h | Dim: Fermé</p>
+                        </div>
+                        <a href="#map" class="agency-btn">Voir sur la carte</a>
+                    </div>
+                </div>
+
+                <div class="agency">
+                    <div class="agency-img" style="background-image: url('/api/placeholder/400/320');"></div>
+                    <div class="agency-content">
+                        <h3>Agence Alger</h3>
+                        <div class="agency-info">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <p>15 Rue Petite Provence, Sidi Yahia, Hydra, Alger</p>
+                        </div>
+                        <div class="agency-info">
+                            <i class="fas fa-phone"></i>
+                            <p>+213 21 45 67 89</p>
+                        </div>
+                        <div class="agency-info">
+                            <i class="fas fa-clock"></i>
+                            <p>Lun-Sam: 9h-18h | Dim: Fermé</p>
+                        </div>
+                        <a href="#map" class="agency-btn">Voir sur la carte</a>
+                    </div>
+                </div>
+
+                <div class="agency">
+                    <div class="agency-img" style="background-image: url('/api/placeholder/400/320');"></div>
+                    <div class="agency-content">
+                        <h3>Agence Oran</h3>
+                        <div class="agency-info">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <p>Hay El Moudjahidine, Rue General Bedeau N°6, Oran</p>
+                        </div>
+                        <div class="agency-info">
+                            <i class="fas fa-phone"></i>
+                            <p>+213 41 98 76 54</p>
+                        </div>
+                        <div class="agency-info">
+                            <i class="fas fa-clock"></i>
+                            <p>Lun-Sam: 9h-18h | Dim: Fermé</p>
+                        </div>
+                        <a href="#map" class="agency-btn">Voir sur la carte</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map Section -->
+            <section id="map" class="map-section">
+                <h2>Nos Emplacements</h2>
+                <div class="map-container">
+                    <!-- Using OpenStreetMap as an embedded iframe -->
+                    <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=0.6427001953125,36.44332107984827,7.7850341796875,37.16031654673677&amp;layer=mapnik"></iframe>
+                </div>
+            </section>
+
+            <!-- Contact Us Section -->
+            <section class="contact-section">
+                <h2>Contactez-nous</h2>
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Email</h3>
+                        <p>contact@berberejewelery.com</p>
+                        <p>info@berberejewelery.com</p>
+                    </div>
+
+                    <div class="contact-info">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <h3>Téléphone</h3>
+                        <p>+213 21 45 67 89</p>
+                        <p>+213 26 12 34 56</p>
+                    </div>
+
+                    <div class="contact-info">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Heures d'ouverture</h3>
+                        <p>Lundi - Samedi: 9h00 - 18h00</p>
+                        <p>Dimanche: Fermé</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>Berbere<span>jewelery</span></h3>
+                    <p style="color: #aaa; margin-bottom: 20px;">Spécialiste des bijoux berbères authentiques et artisanaux depuis 2010. Qualité, tradition et élégance.</p>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt" style="color: #c19b76; margin-right: 10px;"></i> Siège: 15 Rue Petite Provence, Alger</li>
+                        <li><i class="fas fa-phone" style="color: #c19b76; margin-right: 10px;"></i> +213 21 45 67 89</li>
+                        <li><i class="fas fa-envelope" style="color: #c19b76; margin-right: 10px;"></i> contact@berberejewelery.com</li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Liens Rapides</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.php">Accueil</a></li>
+                        <li><a href="index.php?page=products">Nos Produits</a></li>
+                        <li><a href="index.php?page=agences">Nos Agences</a></li>
+                        <li><a href="index.php?page=contacts">Contact</a></li>
+                        <li><a href="#">À Propos de Nous</a></li>
+                        <li><a href="#">Conditions Générales</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Suivez-nous</h3>
+                    <p style="color: #aaa; margin-bottom: 20px;">Restez connectés et découvrez nos nouveautés sur les réseaux sociaux.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p style="color: #aaa; margin-bottom: 20px;">Inscrivez-vous pour recevoir nos offres spéciales et nos dernières collections.</p>
+                    <form class="footer-form">
+                        <input type="email" placeholder="Votre email" required>
+                        <button type="submit">S'inscrire</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2025 Berbere Jewelery. Tous droits réservés.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Simple JavaScript to enable smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
