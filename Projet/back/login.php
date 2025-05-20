@@ -22,7 +22,7 @@ try {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $login = trim($_POST['login'] ?? '');
     $pwdInput = $_POST['pwd'] ?? '';
-
+}
     if (empty($login) || empty($pwdInput)) {
         // Rediriger vers la page de connexion avec un message d'erreur
         header("Location: ../html/login.html?error=empty_fields");
@@ -38,28 +38,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Vérifier le mot de passe avec hash sécurisé
         if (password_verify($pwdInput, $user['password'])) {
             // Stocker les infos de l'utilisateur dans la session
+            // Stocker les infos de l'utilisateur dans la session
             $_SESSION['user'] = [
                 'id' => $user['id'],
                 'login' => $user['login'],
                 'email' => $user['email']
-            ];
+            ];}
+      if ($user) {
+    // Vérifier le mot de passe avec hash sécurisé
+    if (password_verify($pwdInput, $user['password'])) {
+        // Stocker les infos de l'utilisateur dans la session
+        $_SESSION['user'] = [
+            'id' => $user['id'],
+            'login' => $user['login'],
+            'email' => $user['email']
+        ];
 
-            // Rediriger vers la page d'accueil
-            header("Location: ../daashboard.php");
-            exit();
+        // Rediriger vers la page d'admin si le login est 'admin', sinon vers le dashboard normal
+        if ($user['login'] === 'admin') {
+            header("Location: ../admin_dashboard.php");
         } else {
-            // Mot de passe incorrect
-            header("Location: ../html/login.html?error=invalid_password");
-            exit();
+            header("Location: /tp_web/Projet/daashboard.php"); // Corrigé selon ton chemin
         }
+        exit();
     } else {
-        // Utilisateur introuvable
-        header("Location: ../html/login.html?error=user_not_found");
+        // Mot de passe incorrect
+        header("Location: ../html/login.html?error=invalid_password");
         exit();
     }
 } else {
-    // Accès direct au script sans formulaire POST
-    header("Location: ../html/login.html");
+    // Utilisateur introuvable
+    header("Location: ../html/login.html?error=user_not_found");
     exit();
-}
+}}
 ?>
