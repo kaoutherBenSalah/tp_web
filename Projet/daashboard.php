@@ -23,7 +23,7 @@ try {
 // Get user login from session
 $login = $_SESSION['user']['login'];
 
-// Retrieve user's products - Use login as user_id since that's how products are associated
+// Retrieve user's products - Use login as user_id
 $stmt = $pdo->prepare("SELECT * FROM products WHERE user_id = :login");
 $stmt->execute([':login' => $login]);
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_account'])) {
         // Destroy session and redirect
         session_unset();
         session_destroy();
-        header("Location: ../index.php?deleted=1");
+        header("Location: /tp_web/Projet/index.php?deleted=1");
         exit();
     } else {
         $delete_error = true;
@@ -92,16 +92,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_account'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
     $product_name = trim($_POST['product_name'] ?? '');
     $product_price = filter_var($_POST['product_price'] ?? 0, FILTER_VALIDATE_FLOAT);
-    $product_description = trim($_POST['product_description'] ?? '');
+    $product_type = trim($_POST['product_type'] ?? '');
+    $product_status = trim($_POST['product_status'] ?? 'Available'); // Default status
+    
+    // File upload handling for product image
+    $has_image = false;
+    $product_image = null;
+    
+    if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] === 0) {
+        $image_tmp = $_FILES['product_image']['tmp_name'];
+        $product_image = file_get_contents($image_tmp);
+        $has_image = true;
+    }
     
     if (!empty($product_name) && $product_price > 0) {
-        $stmt = $pdo->prepare("INSERT INTO products (name, price, description, user_id) VALUES (:name, :price, :description, :user_id)");
-        $stmt->execute([
+        // Insert product with appropriate fields
+        $stmt = $pdo->prepare("INSERT INTO products (user_id, P_NAME, P_Price, P_Type, P_Status, P_picture) VALUES (:user_id, :name, :price, :type, :status, :picture)");
+        
+        $params = [
+            ':user_id' => $login,
             ':name' => $product_name,
             ':price' => $product_price,
-            ':description' => $product_description,
-            ':user_id' => $login // Use login as user_id
-        ]);
+            ':type' => $product_type,
+            ':status' => $product_status
+        ];
+        
+        if ($has_image) {
+            $params[':picture'] = $product_image;
+        } else {
+            $params[':picture'] = null;
+        }
+        
+        $stmt->execute($params);
         
         // Redirect to avoid form resubmission
         header("Location: dashboard.php?product_added=1");
@@ -116,20 +138,35 @@ if (isset($_GET['delete_product'])) {
     $product_id = filter_var($_GET['delete_product'], FILTER_VALIDATE_INT);
     
     if ($product_id) {
-        // Ensure product belongs to current user
-        $stmt = $pdo->prepare("DELETE FROM products WHERE id = :id AND user_id = :login");
+        // Get product name before deletion for consistency
+        $stmt = $pdo->prepare("SELECT P_NAME FROM products WHERE id = :id AND user_id = :login");
         $stmt->execute([':id' => $product_id, ':login' => $login]);
+        $product = $stmt->fetch(PDO::FETCH_ASSOC);
         
-        // Redirect
-        header("Location: dashboard.php?product_deleted=1");
-        exit();
+        if ($product) {
+            // Delete the product
+            $stmt = $pdo->prepare("DELETE FROM products WHERE id = :id AND user_id = :login");
+            $stmt->execute([':id' => $product_id, ':login' => $login]);
+            
+            // Redirect
+            header("Location: dashboard.php?product_deleted=1");
+            exit();
+        }
     }
 }
 
-// Retrieve products again if needed (after modification)
+// Retrieve products again after modifications
 $stmt = $pdo->prepare("SELECT * FROM products WHERE user_id = :login");
 $stmt->execute([':login' => $login]);
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Function to generate base64 image data for display
+function getImageData($blob) {
+    if ($blob) {
+        return 'data:image/jpeg;base64,' . base64_encode($blob);
+    }
+    return '../images/placeholder.png'; // Default placeholder image
+}
 ?>
 
 <!DOCTYPE html>
@@ -467,7 +504,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <li><a href="#" class="tab-link" data-tab="products"><i class="fas fa-shopping-cart"></i> Mes Produits</a></li>
       <li><a href="#" class="tab-link" data-tab="add-product"><i class="fas fa-plus"></i> Ajouter un Produit</a></li>
       <li><a href="#" class="tab-link" data-tab="settings"><i class="fas fa-cog"></i> Paramètres</a></li>
-      <li><a href="logout.php" onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter ?');"><i class="fas fa-sign-out-alt"></i> Déconnexion</a></li>
+      <li><a href="/tp_web/Projet/index.php" onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter ?');"><i class="fas fa-sign-out-alt"></i> Déconnexion</a></li>
     </ul>
   </div>
 
@@ -513,7 +550,6 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
       <button class="tab-btn" data-tab="profile">Mon Profil</button>
       <button class="tab-btn" data-tab="products">Mes Produits</button>
-      <button class="tab-btn" data-tab="add-product">Ajouter un Produit</button>
       <button class="tab-btn" data-tab="settings">Paramètres</button>
     </div>
 
@@ -575,17 +611,16 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
         <?php if (empty($products)): ?>
           <p>Vous n'avez pas encore ajouté de produits.</p>
-          <button class="btn btn-primary tab-link" data-tab="add-product">Ajouter un produit</button>
         <?php else: ?>
           <div class="product-list">
             <?php foreach ($products as $product): ?>
               <div class="product-item">
                 <div>
-                  <strong><?php echo htmlspecialchars($product['name']); ?></strong>
-                  <span class="product-price"><?php echo number_format($product['price'], 2); ?> DA</span>
+                  <strong><?php echo htmlspecialchars($product['P_NAME']); ?></strong>
+                  <span class="product-price"><?php echo number_format($product['P_Price'], 2); ?> DA</span>
                 </div>
                 <div class="product-actions">
-                  <a href="?delete_product=<?php echo $product['id']; ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit?');" class="btn btn-danger">
+                  <a href="?delete_product=<?php echo $product['P_NAME']; ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit?');" class="btn btn-danger">
                     <i class="fas fa-trash"></i> Supprimer
                   </a>
                 </div>
